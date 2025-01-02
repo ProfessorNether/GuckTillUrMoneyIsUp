@@ -6,7 +6,6 @@ using System.Collections.Generic;
 public class CharacterCreation : MonoBehaviour
 {
     public List<CharacterItemMenu> _CharacterItemMenu;
-    public string PrefabPath; // Path in Resources folder, e.g., "Prefabs/MyPrefab"
 
     [System.Serializable]
     public class CharacterItemMenu
@@ -31,6 +30,17 @@ public class CharacterCreation : MonoBehaviour
         {
             int index = i;
             var handler = _CharacterItemMenu[index];
+
+            GameObject _BaseSpriteObj = GameObject.Find(_CharacterItemMenu[index]._ItemName);
+            if (_BaseSpriteObj != null)
+            {
+                _CharacterItemMenu[index]._BaseSprite = _BaseSpriteObj.GetComponent<SpriteRenderer>();
+            }
+            else
+            {
+                Debug.LogWarning($"GameObject with name {_CharacterItemMenu[index]._ItemName} not found in the scene.");
+            }
+
 
             if (handler._WearableItemsList != null)
             {
